@@ -1,5 +1,5 @@
 {
-  description = "Miscellaneous Nix helpers";
+  description = "Miscellaneous Nix expressions";
   inputs.nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
 
   outputs = { nixpkgs-lib, ... }: {
