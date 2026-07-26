@@ -1,21 +1,12 @@
-{ lib, ... }:
-
-{
-  config,
-  self,
-  root,
-  path,
-  force ? true,
-}:
+{ config, force ? true, path }:
 
 let
   sendOut = config.lib.file.mkOutOfStoreSymlink;
-  src = path |> toString |> lib.removePrefix "${self}/";
 in
 
 {
   ${baseNameOf path} = {
     inherit force;
-    source = sendOut "${config.home.homeDirectory}/${root}/${src}";
+    source = sendOut "${config.home.homeDirectory}/${path}";
   };
 }
