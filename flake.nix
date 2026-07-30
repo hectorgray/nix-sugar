@@ -7,7 +7,7 @@
 
     lib = {
       importDir = import ./lib/importDir.nix { inherit (nixpkgs-lib) lib; };
-      xdgSendOut = import ./lib/xdgSendOut.nix;
+      xdgSendOut = import ./lib/xdgSendOut.nix { inherit (nixpkgs-lib) lib; };
     };
   };
 }
