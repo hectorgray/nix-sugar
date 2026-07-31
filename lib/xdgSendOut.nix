@@ -1,21 +1,20 @@
 { lib, ... }:
 
 {
-  config,
-  self,
-  root,
-  path,
-  force ? true,
-}:
+  flake.lib.xdgSendOut = {
+    config,
+    self,
+    flakeRoot,
+    paths,
+    force ? true,
+  }: let
+    src = path: path |> toString |> lib.removePrefix "${self}/";
 
-let
-  sendOut = config.lib.file.mkOutOfStoreSymlink;
-  src = path |> toString |> lib.removePrefix "${self}/";
-in
-
-{
-  ${baseNameOf path} = {
-    inherit force;
-    source = sendOut "${config.home.homeDirectory}/${root}/${src}";
-  };
+    mkEntry = path: lib.nameValuePair (baseNameOf path) {
+      inherit force;
+      source = config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/${src path}";
+    };
+  in paths
+    |> map mkEntry
+    |> lib.listToAttrs;
 }
