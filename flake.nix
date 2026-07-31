@@ -1,15 +1,21 @@
 {
   description = "Miscellaneous Nix expressions";
-  inputs.nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
 
-  outputs = { nixpkgs-lib, ... }: let
-    inherit (nixpkgs-lib) lib;
-    importDir = (import ./lib/importDir.nix { inherit lib; }).flake.lib.importDir;
-  in {
-    flakeModules.lib = ./flakeModules/lib.nix;
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = import inputs.systems;
 
-    lib = (lib.evalModules {
-      modules = [ ./flakeModules/lib.nix ] ++ importDir ./lib;
-    }).config.flake.lib;
+    imports = (import ./lib/importDir.nix {
+      inherit (inputs.nixpkgs) lib;
+    }).flake.lib.importDir ./.;
+  };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    systems.url = "github:nix-systems/triplet";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
   };
 }
