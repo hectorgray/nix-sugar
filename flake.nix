@@ -2,7 +2,7 @@
   description = "Miscellaneous Nix expressions";
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = import inputs.systems;
+    systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
     imports = (import ./lib/importDir.nix {
       inherit (inputs.nixpkgs) lib;
@@ -11,7 +11,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/triplet";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
