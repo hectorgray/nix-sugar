@@ -80,3 +80,28 @@ This is a plain module designed to work well with `flake-parts`, which exposes
 # square.nix
 { flake.lib.square = x: x * x; }
 ```
+
+## Home Modules
+
+### `mimeGlobs`
+
+```nix
+imports = [ inputs.sugar.homeModules.mimeGlobs ];
+```
+
+Add glob variants of the `xdg.mimeApps` association options. Keys ending in `*`
+expand against every MIME type known to `shared-mime-info` and exact keys
+clobber glob matches.
+
+#### Example
+
+```nix
+xdg.mimeApps = {
+  enable = true;
+
+  globs.defaultApplications = {
+    "text/*" = "nvim.desktop";
+    "text/html" = "firefox.desktop";
+  };
+};
+```
