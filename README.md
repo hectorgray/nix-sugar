@@ -81,6 +81,30 @@ This is a plain module designed to work well with `flake-parts`, which exposes
 { flake.lib.square = x: x * x; }
 ```
 
+## Home Modules
+
+### `mutableFiles`
+
+```nix
+imports = [ inputs.sugar.homeModules.mutableFiles ];
+```
+
+Install `home.file` and `xdg.*File` entries as writable copies. Edits last
+until the next Home-Manager activation, which restores the declared contents.
+
+#### Example
+
+```nix
+xdg.configFile."VSCodium/User/settings.json" = {
+  mutable = true;
+
+  source = (pkgs.formats.json {}).generate "vscodium-settings.json" {
+    "editor.tabSize" = 2;
+    "workbench.startupEditor" = "newUntitledFile";
+  };
+};
+```
+
 ## Archive
 
 Files in `_archive/` are kept for reference and are not included in this
