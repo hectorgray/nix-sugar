@@ -1,6 +1,8 @@
 # Nix Sugar
 
-Miscellaneous Nix expressions.
+Personal collection of Nix expressions I use across projects or would rather
+abstract away from individual configurations. Some are based on existing work
+(linked where relevant) but fit my preferred scope/style.
 
 ## Requirements
 
@@ -104,6 +106,10 @@ xdg.configFile."VSCodium/User/settings.json" = {
   };
 };
 ```
+
+**Related:**
+
+- [piousdeer's gist](https://gist.github.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa)
 
 ## Archive
 
