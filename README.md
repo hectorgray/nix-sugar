@@ -81,27 +81,11 @@ This is a plain module designed to work well with `flake-parts`, which exposes
 { flake.lib.square = x: x * x; }
 ```
 
-## Home Modules
+## Archive
 
-### `mimeGlobs`
+Files in `_archive/` are kept for reference and are not included in this
+flake's outputs.
 
-```nix
-imports = [ inputs.sugar.homeModules.mimeGlobs ];
-```
+### Home Modules
 
-Add glob variants of the `xdg.mimeApps` association options. Keys ending in `*`
-expand against every MIME type known to `shared-mime-info` and exact keys
-clobber glob matches.
-
-#### Example
-
-```nix
-xdg.mimeApps = {
-  enable = true;
-
-  globs.defaultApplications = {
-    "text/*" = "nvim.desktop";
-    "text/html" = "firefox.desktop";
-  };
-};
-```
+- `mimeGlobs`: upstreamed in nix-community/home-manager#9883
