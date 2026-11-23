@@ -20,6 +20,10 @@ vendor() {
 
   if [ -d "$source" ]; then
     (
+      if [ -d "$path" ] && diff -rq "$source" "$path" >/dev/null; then
+        return 0 # permissions/symlink changes won't refresh; eval if desirable
+      fi
+
       parent=$(dirname "$path")
       mkdir -p "$parent"
 

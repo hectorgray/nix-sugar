@@ -10,7 +10,7 @@
 
           program = lib.getExe (pkgs.writeShellApplication {
             name = "vendor";
-            runtimeInputs = [ pkgs.coreutils ];
+            runtimeInputs = [ pkgs.coreutils pkgs.diffutils ];
 
             text = ''
               rootMarker=${lib.escapeShellArg config.vendor.rootMarker}
